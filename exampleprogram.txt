@@ -1,5 +1,6 @@
+% Comment
 LD  R0  2
 SUB R0  1
-BZ  R0  4
+BZ  R1  4
 BZ  n   1
 B   n   4

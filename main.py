@@ -1,13 +1,19 @@
 from readwrite import iotools
 from readwrite import conversion
-import os
 
 hello = '''
- _   _      _ _       
-| | | | ___| | | ___  
-| |_| |/ _ \ | |/ _ \ 
-|  _  |  __/ | | (_) |
-|_| |_|\___|_|_|\___/ 
+
+
+ __  __  ____ _   _    ____ ___  ____  _____                   
+|  \/  |/ ___| | | |  / ___/ _ \|  _ \| ____|                  
+| |\/| | |   | | | | | |  | | | | | | |  _| _____              
+| |  | | |___| |_| | | |__| |_| | |_| | |__|_____|             
+|_|__|_|\____|\___/   \____\___/|____/|_____| _____ ___  ____  
+|_   _|  _ \    / \  | \ | / ___|| |      / \|_   _/ _ \|  _ \ 
+  | | | |_) |  / _ \ |  \| \___ \| |     / _ \ | || | | | |_) |
+  | | |  _ <  / ___ \| |\  |___) | |___ / ___ \| || |_| |  _ < 
+  |_| |_| \_\/_/   \_\_| \_|____/|_____/_/   \_\_| \___/|_| \_\\
+
 '''
 print(hello)
 
@@ -18,14 +24,10 @@ full_arr = conversion.fill_array(bin_arr)
 new_filename = input('New Filename: ').strip()
 
 while(True):
-    choice = input('Write to Hex? y/n:')
+    choice = input('Write to binary? y/n:')
     if choice == 'y':
-        iotools.write_to_hex(new_filename, full_arr)
+        iotools.write_to_binary(new_filename, full_arr)
         break
     elif choice == 'n':
-        iotools.write_to_binary(new_filename, full_arr)
         break
-    elif choice == 'debug':
-        iotools.write_to_hex(new_filename, full_arr)
-        iotools.write_to_binary(new_filename, full_arr)
-        break
+iotools.write_to_hex(new_filename, full_arr)

@@ -15,7 +15,7 @@ class iotools:
     
     @staticmethod
     def write_to_binary(filename, bin_arr):
-        filename = filename + '.bin'
+        filename = filename + '.txt'
         with open(filename, 'w') as file:
             for line in bin_arr:
                 file.write(line + '\n')
@@ -33,14 +33,14 @@ class iotools:
         bit_arr = []
         with open(filename, 'r') as file:
             for line in file:
-                if(line.strip()[0] == '%'):
+                if line.strip().startswith('%'):
                     pass
                 else:
                     opcode, dest, data = re.split(r'\s{1,3}', line.strip())
-                opcode_bin = library[opcode]
-                dest_bin = library[dest]
-                data_bin = conversion.decimal_to_binary(data)
-                bit_arr.append(opcode_bin + dest_bin + data_bin)
+                    opcode_bin = library[opcode]
+                    dest_bin = library[dest]
+                    data_bin = conversion.decimal_to_binary(data)
+                    bit_arr.append(opcode_bin + dest_bin + data_bin)
         return bit_arr
     
 class conversion:
