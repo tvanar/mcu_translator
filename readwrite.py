@@ -7,7 +7,7 @@ class iotools:
         library = {}
         with open(filename, 'r') as file:
             for line in file:
-                op, code = line.strip().split(':') 
+                op, code = line.strip().lower().split(':') 
                 op = op.strip()
                 code = code.strip()
                 library[op] = code
@@ -37,9 +37,9 @@ class iotools:
                     pass
                 else:
                     try: 
-                        opcode, dest, data = re.split(r'\s{1,10}', line.strip())
+                        opcode, dest, data = re.split(r'\s{1,10}', line.lower().strip())
                     except:
-                        opcode, data = re.split(r'\s{1,10}', line.strip())
+                        opcode, data = re.split(r'\s{1,10}', line.lower().strip())
                         dest = 'n'
                     opcode_bin = library[opcode]
                     dest_bin = library[dest]
