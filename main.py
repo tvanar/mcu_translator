@@ -19,7 +19,8 @@ print(hello)
 
 instructions = iotools.read_instructions('instructions.txt')
 program_direc = input('Directory of program: ').strip()
-bin_arr = iotools.read_compile(program_direc, instructions)
+bin_arr, comment_arr = iotools.read_compile(program_direc, instructions)
+comments = conversion.fill_str_arr(comment_arr)
 full_arr = conversion.fill_array(bin_arr)
 new_filename = input('New Filename: ').strip()
 
@@ -30,4 +31,4 @@ while(True):
         break
     elif choice == 'n':
         break
-iotools.write_to_hex(new_filename, full_arr)
+iotools.write_to_hex(new_filename, full_arr, comments)

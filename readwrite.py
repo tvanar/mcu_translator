@@ -21,31 +21,47 @@ class iotools:
                 file.write(line + '\n')
 
     @staticmethod
-    def write_to_hex(filename, bin_arr):
+    def write_to_hex(filename, bin_arr, comment_arr):
         filename = filename + '.hex'
         hex_arr = conversion.bin_to_hex_arr(bin_arr)
         with open(filename, 'w') as file:
-            for line in hex_arr:
-                file.write(line + ';\n')
+            for i in range(len(hex_arr)):
+                file.write(hex_arr[i] + ';' + comment_arr[i] + '\n')
 
     @staticmethod
     def read_compile(filename, library = dict):
         bit_arr = []
+        comment_arr = []
         with open(filename, 'r') as file:
             for line in file:
                 if line.strip().startswith('%'):
                     pass
                 else:
-                    try: 
-                        opcode, dest, data = re.split(r'\s{1,10}', line.lower().strip())
+                    try:
+                        opcode, dest, data, comment = re.split(r'\s{1,10}', line.lower().strip())
+                        if comment.startswith('%'):
+                            comment = comment[1:]
+                        else:
+                            raise ValueError('Error due to earlier errors')
                     except:
-                        opcode, data = re.split(r'\s{1,10}', line.lower().strip())
-                        dest = 'n'
+                        try: 
+                            opcode, dest, data = re.split(r'\s{1,10}', line.lower().strip())
+                            comment = ''
+                        except:
+                            opcode, data = re.split(r'\s{1,10}', line.lower().strip())
+                            dest = 'n'
+                            comment = ''
+
+                    
                     opcode_bin = library[opcode]
                     dest_bin = library[dest]
-                    data_bin = conversion.decimal_to_binary(data)
+                    if data.startswith('$'):
+                        data = data[1:]
+                    else:
+                        data_bin = conversion.decimal_to_binary(data)
                     bit_arr.append(opcode_bin + dest_bin + data_bin)
-        return bit_arr
+                    comment_arr.append(comment)
+        return [bit_arr, comment_arr]
     
 class conversion:
 
@@ -80,3 +96,12 @@ class conversion:
         elif len(bin_arr) > 64:
             bin_arr = bin_arr[:64]
         return bin_arr
+    
+    @staticmethod
+    def fill_str_arr(str_arr):
+        if len(str_arr) < 64:
+            remaining = 64 - len(str_arr)
+            str_arr.extend([''] * remaining)
+        elif len(str_arr) > 64:
+            str_arr = str_arr[:64]
+        return str_arr

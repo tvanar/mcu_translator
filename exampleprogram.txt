@@ -1,7 +1,7 @@
 % Comment
-LD  R0  2
-SUB R0  1
+LD  R0  2 %Comment
+SUB R0  $00000001 %Comment
 BZ  R1  4
 BZ      1
 B   R0  4
-CALL 60
+CALL    60
