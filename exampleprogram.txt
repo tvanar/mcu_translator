@@ -2,5 +2,6 @@
 LD  R0  2
 SUB R0  1
 BZ  R1  4
-BZ  n   1
-B   n   4
+BZ      1
+B   R0  4
+CALL 60

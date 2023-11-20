@@ -36,7 +36,11 @@ class iotools:
                 if line.strip().startswith('%'):
                     pass
                 else:
-                    opcode, dest, data = re.split(r'\s{1,3}', line.strip())
+                    try: 
+                        opcode, dest, data = re.split(r'\s{1,10}', line.strip())
+                    except:
+                        opcode, data = re.split(r'\s{1,10}', line.strip())
+                        dest = 'n'
                     opcode_bin = library[opcode]
                     dest_bin = library[dest]
                     data_bin = conversion.decimal_to_binary(data)
