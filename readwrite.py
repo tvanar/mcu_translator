@@ -35,20 +35,20 @@ class iotools:
         with open(filename, 'r') as file:
             for line in file:
                 if line.strip().startswith('%'):
-                    pass
+                    bit_arr.append('0000000000000')
                 else:
                     try:
-                        opcode, dest, data, comment = re.split(r'\s{1,10}', line.lower().strip())
+                        opcode, dest, data, comment = re.split(r'\s{1,15}', line.lower().strip())
                         if comment.startswith('%'):
                             comment = comment[1:]
                         else:
                             raise ValueError('Error due to earlier errors')
                     except:
                         try: 
-                            opcode, dest, data = re.split(r'\s{1,10}', line.lower().strip())
+                            opcode, dest, data = re.split(r'\s{1,15}', line.lower().strip())
                             comment = ''
                         except:
-                            opcode, data = re.split(r'\s{1,10}', line.lower().strip())
+                            opcode, data = re.split(r'\s{1,15}', line.lower().strip())
                             dest = 'n'
                             comment = ''
 
