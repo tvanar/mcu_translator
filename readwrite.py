@@ -62,7 +62,21 @@ class iotools:
                     bit_arr.append(opcode_bin + dest_bin + data_bin)
                     comment_arr.append(comment)
         return [bit_arr, comment_arr]
-    
+
+    @staticmethod
+    def read_compile_revamp(filename = str, library = dict):
+        bit_arr = []
+        with open(filename, 'r') as file:
+            for line in file:
+
+                try:
+                    op, data, comment = re.split(r'[,;]', line.lower().strip(), 3)
+                except:
+                    raise Exception('Error due to earlier errors')
+                pass
+                    
+                    
+
 class conversion:
 
     @staticmethod
